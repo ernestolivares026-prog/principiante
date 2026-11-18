@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CONTROL DE TRAMOS</title>
+
+    <!-- CONFIGURACIÓN DE APLICACIÓN MÓVIL (PWA / STANDALONE) -->
+    <meta name="application-name" content="CONTROL DE TRAMOS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CONTROL DE TRAMOS">
+    <meta name="theme-color" content="#0056b3">
+
+    <!-- MANIFIESTO E ÍCONO INTEGRADOS EN UN SOLO ARCHIVO -->
+    <link rel="manifest" href="data:application/manifest+json;base64,eyJzaG9ydF9uYW1lIjogIkNPTlRST0wgREUgVFJBTU9TIiwgIm5hbWUiOiAiQ09OVFJPTCBERSBUUkFNT1MiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFBQUFRQUJBQUQvMndCREFBVURCQVFFQXdVRUJBUUZCUVVHQnd3SUJ3Y0hCdzhMQ3drTUVROFNFaEVQRVJFVEZod1hFeFFhRlJFUkdDRVlHaDBkSHg4ZkV4Y2lKQ0llSkJ3ZUh4Ny8yd0JEQVFVRkJRY0dCdzRJQ0E0ZUZCRVVIaDRlSGg0ZUhoNGVIaDRlSGg0ZUhoNGVIaDRlSGg0ZUhoNGVIaDRlSGg0ZUhoNGVIaDRlSGg0ZUhoNGVIaDcvd0FBUkNBREFBTUFEQVNJQUFoRUJBeEVCLzhRQUhBQUFBUVVCQVFFQUFBQUFBQUFBQUFBQUFCQUlEQlFZSENBRUEvOFFBUUJBQUFnRURBZ01HQkFNR0JBUUhBQUFBQVFJREFBUVJCU0VHRWpFSEV5SkJVV0VVY1lHUkl6S2hGVUpTWXJIQkNJS1MwU1F6d3VGRFUzSnpvckx4LzhRQUd3RUFBZ01CQVFFQUFBQUFBQUFBQUFBQUFRTUNCQVVBQmdmL3hBQXpFUUFDQWdFREF3SUNDUU1GQUFBQUFBQUJBZ0FERVFRU0lRVXhRUk5STW5FR0ZDSmhnWkdoc2RFVndlRXpRa1BTOFAvYUFBd0RBUUFDRVFNUkFEOEE2QktFcXBGRjJzWkJGZVc2aG9WTkZ3SUFLVm1kaUI2c1BDRFVPRCtJS25kVkg0UU5RVEhEMUlHREVtb1JtTmFXUUtidFd6Q3BwWk85RE03RThJSG50VGNqcUFkNittZkMxSFhFK01qTkF2aVNDRXlKMXFVS3o0cWo2dEszT1NEVnExdHkyU3RWSzloa2Q4NE5RTmtZdFVocHdaSk1tbkxaTU1LTmF6S29XSW9kVjVHNlZYZTNCbDJ1akloY1J4VDRiYnJRVVRrdDBvbERuclE5WXcraUl2clJka01BN1V6RW9vNjBqcUhxa3lYcEFTSDFoZGljVm4zRkFEQWl0TDF1TUJHck8rSW9pMmNBMCtwb2l5dVZIbHhJTnFtSUl6SkdCaW8wd3lGOEJUMXF6YVBhTzhRSlduV1BnUmExU3Q2dHAvUEcyM2xWSXVOSXhxQlBMNTF0TXVrbVZTT1UxRVRjTGt6ODNKNStsSlMvbkVtYVpVdEgwc0RsOE5XeXh0ZTdpNlZMV09nbEFQRFVtTklQZGtjdEUyQXdDb3pvSFQ1QjhPdTlIUnlERlFkaEppQUFtakk1eC9GUTlVUmZwUW5WR0hjVlhuWWQ1OWFsZFJtWHVENHFyN3pqbjYwUmFKM3BTeDJiL2dpblNhaXJLNkFoNmluVGQ1UFVWM3FUdlNoVnh1dFJONHJaMm8zditiQXoxcm1ialA4QXhFYXZiOFdhcnBlazZSWXhXdG83cEJKT0dkNVNqWUxFQWdBSEJJQTlxS2cySEFrdmdHVE44bXRXZFNXR1JRTWxpcFBRWnJtTys3ZiswQzRCV0c2c2JZSC9BTW16WEkrclpxQ3ZPMXJ0QXU4OTV4UmV4ZytVWldQK2dGTitxbnlaSDF4N1RxdTl0VlJNY3RRMDhDQnZ5MURkbGZHcDRoNEZzN3ZXcnBEcUNNOE16a1k3d3FkbTI4eUNNMU9TWDloSTJSY0xWS3hjSEUwcUtyblhLcVNQa1l6RENNN0xUL2NFRFBMUm1tUXBmU0xIWXNrOGpIWkVZY3grbFRMY09hMkJnNlhjL3dDbWh0T08wVzJVYkQ4Zk9WdU5UemIxSjJpamw2MG5WTEs3MHRETHFGcE5heGpxOGlFTDkrbFJaNGgweTNVczByTmc0d29vTFU3ZGhIQlN3NGgycDI1a1U3WnFxNmxwUmtKSExSVS9hSm9FTXZjM0VWNUQ3dkYrdldyRG9zdW1hNWJmRmFkZHczTWZueUhkVDZFZFJVeXRsUXl3eEZmWllsYzhqeEtKRnc4ZWJQSlUzcHVrOTJBdkxpcm91blJJdlFVeTF1a1p5TVVteTNjTVFxbUpGUTZhZ1hkUlh6YWFoYjhveFVpMHlMc2FXazhlS1FDUko3WUVtbklNYlY3SlpvcW5ZVWY4UW1QS21wWjFZRUNwYnpEc2s1SGNzcWhjMG9YVW1ldFJwbDk2Kzc4MVBtUTJnU1J1TG1Sb2lNMUV5TS9QMXB3M0cyRFRUU3FUUkhFN0FoVUZ4SXFZeWFCMXJpYXcwV0lTWDgvS1QrVkYzZHZrUDcwRHhWcnR0b09pU1gwZ0R5RThrTWVmenVmN0RxYXduV05TdmRXdlpMdTdsYVNTUTcvN0FlUTlxVmJmczRIZWIvUk9nLzFBbXl6aEIrWitYOHpVZFI3V1dMbGJLemhqVUhacG5MTjloV1RYUENuRHVxM1BlelhseUhKYll5N0RtWXNRRGpPTWs3Wm9VWEZvSkRFYm1MdkIxVU5rajU0b21FQ1RKaWtTUWdaSVJ0d1BVanJpayt0cVFOd3lCUFlWZE02SUc5SUloUHNUay9xWkx4OEVhRFpXNk8yaVc4cUg4czBqUElHK3ZOajlLTnROTzAyMVAvRFdGbERqemp0a0IrK00wTHc1eERlYVZOeU55ejJyL3dETWhsR1VjZWhIOTZtTmMwMjJ1amE2aHBGMFliU1NUbEJsZkh3N0hHVmMrbm9mU29IVVdNT1dKL0dhTlhUZEZRY0xTbzlqZ2Y4QXMvdkZpNUtvSTFiQUhRRGFtemROL0ZRRnhKM1JkWkhUTWJtTnlyWlFzTnNxZk1IeW9LNDFTeXR3VE5kUkpqMVlVQzc1eEw2TnB4V0xBUUZQeWsydDY2c0NIT1J1UFVWby9aOTJzWHVrTXRucnpUYWhwK01MSithZUgwd1QrWmZZbkk4ajVWZ21vY1o2TGFvekNaNXVYYjhKQzFRMTEya0xBeU11a1RpRm14elN1RkoyQjJIbnNRYXRVcHFUeW9NODkxalc5Q3VyOUxVV0tmbHlSOGlNNG5aY3ZiRndkUEdZbmcxSjBZWUtOYXFRUjZFYzI5WTkybTMvQUFNTDViN1FvYjJ6Tnd4RXRtOEFWU2V2TWdCUDFIUWZwV2VhUnhDdCtzVTl1STJpZnhCbFk3NC92UWZIYzFqcHZGZHpabThzMXVJZ2duYTRta0daT1VGZ3ZMMEFKSzQvbDlhdWFScmJYSWJnRHZQTGRTcjZkMFdwYmRHU3p0MnljcmozUEhQM1NUMUs2MDY3aWFHU09Sb2owSkdHVStvOURWZjBmV2RZNFMxbGRTMCs0NVVSOEhtYkN6ci9BQWxmY2ZhbUk5U2dmWmIzVG16L0FBNmc2LzhBMkZRZkVGMjExcUpRT0RIRU9WQUplOFgzSVBuL0FOcTFsUlZCQTdIeFBIYTNxTjJ0WU5ZQUdIa0RCK1U2dTBEaVMyNGcwYTIxU3lZOTNNdVNwNm8zbXA5d2FlbW5kcXk3L0RoY3lUNkpxZGt4eXNFNk92dHpMdjhBcXRhdVlseHZXQmNvcnNLeTlTMjlBMGptN3hqNTBwQStNVVc0VmFaWndPbEpMUm9FVWluRzVweFVIbWFIRTJLK053UFdvWmt0c2ZlOFVIQUlyMWJvTmlxNHM1WnM3MGZhT1hPTTFkbFRNbEpaenk3VUpKZWNvM05PT3ZnNjFGM2FrdGdVTXpoS3gydTNrWjBPMG1tY0pGRE16TXg4aHlHc0ExWGkyNXU0V2p0Rk5xT2MrWE1YWGJHVDVFYi9BRHo3VnAzYnpjM0xRNlZwSUlXM3VESkxLeEdjOHZLQVAxeldjMkJzckNkQkRGQXNnWUZlYkJjL2Zlcm1rMHFFK3F3eVkzVWRZMUZlbkdrcllxb3lUanpuKzBqdEwxbTVoVmx1ZTVjYzRjSzhaVXQxemh4dXZyNkdycGEzbW1QcEZ2cXR2cVB4STV5azFyS0Q4VGFPRGxTTWRWSXhpUmNiNUJBT01ydEpkSnZWVTZ0YXh5Mnd6MzdQTHlPdWM0S3NBVCtudFZWaWFIUk5XZFhsbTdtUWNwS3FHN3lJbkRvMjRHUmpJUHFBZk90SEh2TVFXR1hlMjFLMzFCOExHOGIvQUxwY0FkNTh4NUg3WjM4ODVPN3lVV1R4cTdCVDFBT3hyT0RxY05oZHVzQ00rSDhFc3I3Z0E1RFlHd1BUMXJRN0M2aXU3QlpsZEFKRURZRERiSTZWNTNxbW1GVEIxN0dmV1BvYjFoOVpVMm51T1dYa0h5Ui9pUi9EdW54Y1E2NXFscHJlcDZxbGxZeHdOSEJaeUJTUThpUjUzOUM0SnEyMjNBM0RWbnFsdHBrdGhZbHBiQ2RqZHpYaGtuYWRHeGt4ZEZRRmZ6ZERraXFMcHV2My9EM0ZPclQ2UkJQTmVYZW5keEJKQW9idXBDVkljZ2dnZ2NwMnFWMDUrT3RYc0xhMmkwbXhndVliZDRIMUNXSXZkU281Y3NHTzVBOFpPdzY0TmFkTlpLQWoybnozcXR6Zlc3RmM1d3g3blBtSDhhM1VrTmw4SXEyVnJaV09zMzl2TEdscWlJRVJGN3ZtSUc1QWtZWjk2eURpaVRrMHZUck9TN0x6MlFhSm95cWp3a25sT1Ixd0ZBOXRxMUc1NE12dFFtdVJ4RHJWNWN2UE0wMXhFbzVGYVJzWllqMU9CNURvS08wM2czaDdUc2ZENlhBWEg3MGc1eit0VzBYYU1US2V6Y2N6SStBNzNXTFRWWTF0TE80dXJhVndKRUNuQS9tQjZBaitsV2ppL1hMaVRqSFdwb3J2VTRoTGZ5dnl3UUpJbVRqMTN6LzJyUzF0dVRsV0pGUlI1S01EOUt4M3RDMG03VGl5K2xnalpsTHJrSWR6bFJ2UUNxcjdoNWsydnNzcld0and1Y2ZkbUVmdG01Q2VLL3ZDUFNiUjBZZnBVZkxMM2x4TElUbm1PYzkzeVoveS91L0tveU93MVZqeXBiWGhKOGdEVmowYmcvaTY3a2poSEQrcEtaRGdTU3dsVng2bGowb3M2cjNNZ3FGdXdtei9BT0hDRVE4TmFqZWtZTTkwRVgzQ0wvdTFhaTh3eFZVNEwwZGVIT0c3VFNsZFhhSlMwcmdiTTdITEg3N2ZJVktTek1laHJ6OTc3N0N3bTlUWHNRQXd5YTRBODZEbHVoNVVOSXpNZXRORlNhVmlOQWo3WFI5YWJhNFkwM2pGZUhhakRpT3BFM2tLTHRJM1U3MUtMWStpMC9GWkhQU3JCYVZBa0ZRRmwzcHByVXNUdFUxRlo0OHFJanN4NWlvYnBMYUpnLzhBaURzcElJZEZ1dTcvQUErYWFJdjZNUXJBZllIN1ZpV3E4TGF0ZExQcTFrQk5icW9kOE9PY04wNVZYcVR0NVYyYjJoNkREclhCR3FhYzBIZXlQQVhoQ3FDNGtYeEtWOThqKzNuWEhCMWcycnZiWFlsdHBSa09GQndmbDdleHJXMFQ3cTl2dE0zVm9WZmQ3d3UydXBvdE9XNGs3b3pMR3BidmdPVU42bW83VXJ4ZFM3aDVMaUVPMHBSblR3SVBDZ3owMkdmYjFxTzFiVlV1RkVNS3VJd2M1UFVtaDdhTnphR2JtVUx6WXhuZmYyOU5qdlZ3eXJpR1h0dDNNelJTbU5XWEdmeEE0NmVvSkIrbGRLOWt0bkMvWjdwalRXbHV6U1FzMldoVWtqbmJHNUdhNWswdTBuMVhWN1hTN0pmeGJpVll3U05nU2NacnNUUkxTMjBqU0xleFIwU0cyZ1dGV1lnQWhSalAxNjEwaXhJN1FYUzlIUnJGYitMVDRMaWN6dWpHVVpVS3JlbjVkaFFXb2FoWngzZUpkVVJncWpNRmszT1dQbjRFSEt2dVNSN1ZWdUp0WnRqTzFvdXBQTFpkNnpTd1JPU3IrbnR1YXJ0OXhXa0NkMWFXc1VTK1EyL29OaFFNNEE0bHV2WjF1YjJhZEltaVYyTEJEaktqM3h0VGVTUDNUVS8yYWNKWDNFZWcydXB6M0tJYm5NaEdNa0xuQzQrZ3o5YTAvUit6L1NiUGxhV0o3cVFiK0pjai9hcEFSWllBekg5TjB2VTlSYkZsWlRTZ2RTRndQdldZOXBFRjNZNjN6UzJza2JUSU1CMTVkMTJQOXE3VFdLS3dUa2p0NGJjRHl5TnFnTmUvWWw2bU5XR20zQ0tTUUpvbGx3VDE2ZzBNY3dDekU0cTA3WGJ6U3RTdDd5MlZHbmdrV1JjaktnajFyWmVHTzFQUTlRdFdPcnEybDNDa0RsSWFSRzl3UU0vUTFlOVhzK3pwQTNMd2xwZDQvcUxKRUgzQXJQSmJuaExoM1VialVMTGhPQk5TQmVXMDVwV2VDQXFwSVlJVGpJeHQxK2xMdjA5VjN4ZUpabzFObFh3eTEzdkZYRE5wZVNXZDFyVnJEY1I0RWtia2dvU000TzJ4MzZkUjUwOXArdGFMcVVqUmFkcWxwZHlLdk1VaWxCWUQxeDF4WE1MYXZCZXQ4UThOdzl3MHJTeVNCd1F6SHpJTy9OdWQvUE5XanM2dUdmamZUYnFBTW5QT3FZSXdlVWpsSU81OTZvVzZCRVFrRXkvVnJuWndDSjBBeDlLYVltbG1ra2Ixa3pValpyN0ZMQzVOZWhhTTZYOUlrSFhGS0FqSHBVWExxS2pvYUVsMVArYW5ZbGVUNWxqWDBwcVM4UmVocXVQcVJQNzFEeVg1UG5YYlowc0U5OTZHc1M3Wk96dVBWSnB0YzBlMVNTVjh0YzJ3RzdIemRQZjFIMXJSMnZDZk92aEtYTlRyc2F0dHl3UFd0aTRNNUN1TkNqU1VyK0toQndVYnk5cVNOSVkrSHZtQytnQUg2MTFIeEh3am9ldGg1cnV4WDRqbFA0c1I1SE8zbVIxK3RZaHFXbjJzRXJDRXN5ZzdiZzFyMFhyYjRtWmRRYW9yc2xzTEt6NHR0YnE1NVk0YlVQY096SHFWWGI5U0tzM0gvRjhtcHpmRDIwcnBacitWUnNaUGY1ZjFxalN6eVFnaUlLdnZqSm9LNHRyOTRQanBSTVluYkFrSjZtbkVueEVCUm5Ka3ROY251eVpwMWhVRHdvTjJQeUZBMjZ6YWpmUVdjQ2tHZVJZbDlTV09CL1dnNFlUMU9hdlBZM3BmeDNIbGt6TG1PMERYTGY1UjRmOEE1RVVWWDNnWTRuUW1qcWRJdElMV3pkbzF0NGxpUXFjYktNZjJvdWJXdFRmODkvY0Vlbk9hRkkyK2xOdXRTbGVNMzkxY1RPenZNN0VuemFvMlVzY2s3L09wR2RQRGswQmNsWWtMeXNzYUQ5NXp5ajdtdWtoSTY1QndhcW1yNkpMcWwrdmRzdUNHUWducmxTUDcxWWJ2VkxNcXh0bWU3NWRpWUY1a0h6ZlpCOVRVUHArcFFYV3QyOGNkN0EvTE1PWllHNTQwSVA1V2s2TTM4cS9VbmFrMnR0VWtSMVM3bUFNelk5aFBFSWpCWFZkTGM0NkhuR1ByaXJwMmJkbldvY1A2aERkNnRjV3Nud3dQZExBUzJXT3dKeU5zWk5hZ2V0SVkxaXZxN1hHQ1p0cnBLMU9SRVkycEpyMW1wQmFxMHN4WFR6cEpPSzhMVTA3MTJKMFhOZk1mT21EY3VmTTAwc2ZyVGl4aXJVclQxWkhKNjA2dk1lcHBJVUNsZzFHR0xVQ2lJaUJRd05PSTJLaVRKQ0hJUWRxNXM0d21nVFdMdWExZmxRT3hrVkc1U0NEdU9YcG4ycm94SDJxbmNhZG0zRC9FOXc5NHhuMCsrZmRwN2NqRG4xWlRzVDc3R242ZTRWTnpFNmlrMkx4TURtdm1Yazd3eUF5Ym9HaERaSHpVL3dCcUlQRUVVbGd1bXRKQU9UektTSzJ4TGJqRzNXbzNqdlJwZUYrS0xyUm11MnVUYk1Bc3ZMeUVncUQweWNkYWhJYnU3anV2aTRiaVJaMkdPODV0ejViNStuMnJZVnd3QkV5V0JVNE1zOXJmUlRFQ0Y3ZVE0eVFwY2tlVy9oOWRxMExzYzRrMDNTcmkrbWx2dEtTNW5RUnh4eXlTODNLcExOc3FIMEhYSFNxaGI4RGRwR2hRM1dyeGFMTTBjMGZOTTBieHpNeUU4MmVWU1QwOUI1bW9EaHZpbTk0ZTFPVFY5TjFTNHNOUmxEcEpKRWd6aDkyR0NDTnlGb3JZRzdHUmRDUGlFNkh0KzA3VGJ5Nmh0YkhWTk1ubm41dVNPM3M3bVp2RDF5QUFSOVJRMm45b3k2dnEwR2thWlBmM1YvTTdwOE5iYU9Ga1hrR1d5SkhPTUFIeXo0VFhPRnZxN1cxK2RSdGRRdUlid3N6ZDdGeksvTTJlWWdqcG5KcWI0T3RyamlYaXkxMDlMc1cxM2ZPemk1dTVXVG5PY3NjamRtYnhEQTZuTmNUZ1pNaUs4bkFtdHAyaHRmYTkreGo4YmIzQ3RLazUxSFVvclNHSW9Ea0ZvMTY1QjJ6NWVlYXAwUGFGSmVUM2kzWHdHbU5EYlNkeExGWnRldlBNR3dvRFNONFJqOTQ1SFhiY1lPNDI3UHVIdUN0Tmd2T0k5YnY3eVc0Y3JiMjFsYktobFlia2wzSndCa1pPUFRZMWxYRUdvMmNsd2tlbFdFbGpFZ3d3YTRNcnVmVWtnRDdBQ2xwYUxCbGUwYTlSck9HN3kwYXJ4VmY2dHBheGFsTmN6WFl1VEtaWHVDSWU3S2dkMkloNGVveVQ5TVZySFoxd1Jxclh5Y1JjUlRSUm1TVDRxR3pnd0Y1anVHWUw0UmpiQ2oycm5LMCtKdUpsU0dHU2FUT1FCdVRXNThQZG9tdWFUcHNMY1FYZGhJRWpDQzFWQjNnQTJHNjlOdlhOTDFGZGpyaEl6VHZXalplYksrd3BoelRpeUxKRWtpbloxREQ1RVpvZVpxd3NUY3pFdStLYWFTbXBITk1seVRpanRuWmhCbHBCWXNkcVRHak5SbHZhbHZLdXhCbU43Q3ZpUUtRV3BERTArSmp3YmVsQTBPamV0UEtUVVNJWW9aTk9MMTYwbFJUaURlaGlITWNUWWIxVCtOKzBLMTRldkcwNjF0aGRYcUtESnp0eXh4NUdRRGpjbkhsVnlBMnJtbnR5Z250KzByVVpPU1dKWjFpZEdPUUhIZHFDUjY3Z2lyT2tyUjdNT01pVjlWYTZKbEpXK085ZHZlSmVJNTlXdWJhT09TVENudVJoU0ZHQWNFNUJ3QlVCSzBvVUtWT1FQTTBTd0xEbVlrbk9NbXZBaS93ak9mU3RjQlFNQ1pKSkp5WmU5RzdXdU03Q0JlODFoN3RBbklZYmlOWFVqR09vQUkrOVZHTm9tMGxKcFh0eGt5TTJBREl6RnRnL25qQTIvd0Qybm85SnZMMkJ1N0VNRnZrNW51SkJGRVBxZXZ5R2FFdWJpMFhUUGhoSnp6Q1Rma1VGU0FPdk5SV3NKeUJqTTVuTDhFNXhHYld3bW5UdlkxYkdDMnlIb09wOU1VWnAwa2NrbkxMYUdTV0pXZUpvcE9RNXhzMlI2SEIyNjBIKzBQd1lrVzBpTFI5WElKNXQ4N2pwWHo2amR2cUQzeFNKWm5KSnhHcXFOc2JMMEZFZDRESnZpSFQrTUp0RXRMN1ZZYmk1MDVEelJUQXN5am1BM0l6c0RqcmdWWDRJVm1BQVhtWW5IV3JSRDJqY1Z3MnNWcmJ6MmtNVVNCRVJMWk5sQXhqZWhKRTRnNGx1V3ZaaEYzbktGTFppZ3lOOFlHUm1tMmlydWhQNHhhR3ovY0JHN1c3dXJTMStHdHBwSTRqdVFteE9ldVNOelVqd3JvR3A4VGFwOERweUs4cmdsM2R3RlJSMUpQdDZkYUExRFFiM1RlU0xVNEpFYVZReUh2Z1JqUGx5a2oyd2F2WFpGY0xwdkVOdVZLd3B5c3JIbHlNRWIxV1lNZUY3bVBYYU9XN1RlSVl6QmJSUWx1WXh4cW5OanJnQVovU201ZDY5RXdrVU1weUQwcjFFWmowckJkR1JpcmR4TnhYREtDdmFEbUVzYVhGWmttcFMydGNnWkZTRUZqN1ZHU2tiWjJHY2JWTVcxZ0FOeFJOdmJoQ05xa0lrR054UXhJNW1iNXI3R2ErRktHS2ZpTHpQRlhlbmxGSUZMWEZkQ0k2b3B4UmltMVlVc3ZnRStsTm9wTjFnckhtTHV0RlNGejRpbWtWQXpPUWlLTXN6SEFBOWF4M3Q4MUt3MVN3MDViWm5sV0NXUWQ0UmhUekFmbDgvTHJXaThZM0dkTldGRmZ1M2I4UWdIb1BYNjFtZkhHbC90VFJPNmltU0NTQis5VXVQQ2RpQ0NmTDUxNm9kTnJwcUlRYysvbWViYlhXVzJBdWVQYnhNZGtSbytibGNrSGZERE5JdUZaVkJZa2srUTJBcDF2enNoSXlEanIxcXlXdWx3cUZlNzdzY3lBam5ZRElJQnp2V2FCaVhDWlVJYldlNW5TS0dHV2FWeUZSVVRjaytXVFZ4dCt6TFd3b2ZVTlI0YjB6TzVGenJNQllmTUl6SFB0aWo3ZGRGdFFTOTdwOFdkam1kQi9lbjRML2h0SEMvdFcyWnZKWUVlUS9aRk5HUnlZSXZaL29zUXpmY2Y2YTNxdGpaWE53ZnVVUmYxcFI0YTRGdEZ5SnVKTlZiL3dCcUcwUS9kcEdxZkVhenhyOEZvWEVsOGpESWFMU25WRC9tY3FLZGk0YzR2dXovQU1Id1pKQXAyRDMxMmlIL0FFcUNmMXJzUVpsYkM2UGJMalQrRjdTTWpvOTFOSmNOL3dCSy9wVFZ6ZDM1aDVWY1c4ZU4xZ2pXSlIvcEZYVzM3TnVLcmtnNmpyT202YXZtbHBibVZ4OVdxWTB2c20wS1p3TDZUVmRaa0c1RXN4Qy82VnhnZk9qdEpnM3JNV2FhMkRTaVM2amVYbHlxOC9NekhQVGJPOWFkMlY2RmVNMGw3cUZ1TGVKbDhLdnRJcWRTVDVLRDk2MHZUZUN1SDlMczVCSFk2Zlp3cVBFeW91Vng2dDBIenlhcW5GUEd2RDl0cDhsanc0WTduSktHZEFXVG1IWGw4M1B2MEZEMVZwTzQ5NDJ1aDlUOWxSeE5GMFdINGl5RXFJVmlZa1I1R01xT2grdFNrRm1RZWxGYUNnbjBXd202ODl0RzJjZXFpcE5JRkhsV0JhNXNjc2U1bXpXb3JRSVBFR3RZQUIwb3hFSytWS0FDMHJuR0todGt0MFJranlyNHpsUjFwTWpDZ0xxY0tDQWE3Yk96S1lEdlN3YWF6dlN1YW1Ub3ZOS1Uwd3o3MTZIcm9ZU3JlOU0zcGxhRU5CdkloeUFlaDlSU1E5TFZxS3NVWU1PNGdaUTZsVDJNQ2E0c0x0RGFYNGVFazlHenk1K1k2ZldvN1hlRXJQVWRNZUsybHVKRWJmOEFCWVBtaXVNcnkxc2RBdUxtZDFTVGw1WURqTEYvSUNzeGc0eTFpM2tMcXRzMitjRk9uNjE2UFM5U3R0UTdsek1XM3BRQnloa3phZG1taG9TYnJUcnk3YjBsUnhqNktCVXZwL1o1d2ZFZ0xjSnBLeDZHVlpIL0FLMUQyUGFucW54YUxjMmdCNWVSZTZuZFFUbnozcVlidFY0bmtrSzJ1azMxd28yYnVybVFyOHRoMXBiMzFBODhTU2RQMVQvQ015eDZOd1R3OHJENFBncUJtL2wwL1A4QTAxZnRENFQxRkZYNFBoVTJpZnhHQllWKzV4V1ZMMms4WThnK0g0VHZ1YnpNbDVKNHZ2UWpjVjlwYzl5ODBPbmFkYW82Z2NrcjgyUGZkczBrNnVvUzBuUXRkWWNCRE4rdk9IN3hVVmJuVWRLdE1ER0h1UXpBK21CazFBM2RucE1hdThtcTNOMFVBSldDMktBNS9ta0s3ZStLeDE3L0FMVExzZDFkOFhwYVJIL3dyVkFBdnl3b3g5NmdPSXRMMVMzNXBydlZMblVvMkk1bWxkaVYyOHdTZHFRZGVtY0x6TDQraXVzVk45Z3dKcSt0OFg4RzZSWnU3UGJ5WEEvY2xtTTVIekNZVUg1N1ZsWEVmYTdxRjJXajA2SUxiQStGbkhkeG41UnBqUDFxZzhSakYya2ZpWkFnWUorN25KM1ByVWNJMmM1WTVOUzlkM0hNalgwdXF0dTJaTDY1eExybkVMQ1BVcithV0FkSWdlVlA5STJyM2hxM2lGMGJhT05ta25mRVlHNUxIOTBmTStWQjJWcE5OS3NNRUx5eXQwUkZMRS9RVm9uQnZBc3F6eDMydHFFQ0VNbHRuSkpIUXVSMEh0OTZoWTZJbjJ6TmJSZE90MUZnV2xmeDhDYi9BTUxXODlwdzFwbHJkb1VuaXRZMGtYK0ZndUNLa3lSaXFqcC9FYlcxdjNkMkRJVTZONWtlOVdUNGhIUlhSZ1ZZQWcrMVplYzh4SFVPbjM2Sjl0bzc5ajd4NTJ4NTB5MG1QT21KcmhRT3RSMXplWnlGTkdaOE11YnNEWUdnbWZuYjFvWU16dFJkdEVTUnRSN1RoektrejE1M2xOazE1NTEwTWNNbGZjNVBTdkVUUFdsRlFLNkhFOVZpYWVpNW02ZVZEOUsrNThIclF6TkRwdWtHcjFBclBiejhwblBhV3Vwbld5YjdtK0ZBeGFrRHdjdm4vbTlmOXFxVEo3VnZCTU4xRzBNOGNjcW5xcnFDcCtob0NYaC9oOUNaRzBpeUJIbjNlMzJyVXExcW9nQkhhYnVvK2l4ZHkxRGphZkI4VENyeGhDRmxKM1Jnd3gxclVlREplODBhTXFHR1R6RVl3Y25mY2ZhbnVKZUd0UDF1eU5yQmJRV2NxWjdsNDR3dUQ2TmpxRCtsSVN5czJsK0hudFZrRUtCRVBPeWtBRG9DakFrZWdPY2VWVkxkUXVwN2NSdWg2YlowMi9rZzVIeWs0b1lqSEszMnBpZVdLQmN5U0pFby9qWUtQMW9FYUxvN2p4NmRHL3M4MHpEN0Y2Y1RTdEdoZm5pMFhTMWIrTDROR1AzWUdxeG96NW04TlE0N0tQelAvV01uWE5JRW5JdXBXOHNuOEVMZDZ4K2laTmZYbHpjWFd5V3MxdkF5N3pYY0JRRWZ5eHRoblB6d3Z2NVZMSmMzQ1JCSTVuaWo2Y2tmZ1g3TGdWRzY3Y1d0cGJHOHZiaU8zZ1Fjenl5SEFIKzU5dXRFVWdHUXV2c1pEdklBKzcrVC9FcnRwd0xaM1hFVFQzTTExTHBoZ3kzNGdFbmVad0FEakdNYjdBZW52Vml0T0J1R2JiRW53UHhDbmRXa2xabFAweitsUDluMnJ4YXlid3d4Y3RwRnlMRXpidkl6WkpPUElZQXdLc3dzcm0yTEZyZGt0cENDNnlFS0QvTXVlaHJySGZQZkV5K252cEJZVkNCZ1Q3Wi9LUjFsWjJkbWhTeXRZYlpUKzdGR0Z6OHlLVzhvQjVVSUxldE56eUZtWkVQaEJPL3JUY1ozNmZPazQ4bWVwTEtnMm9NQ1BibmNuYzFZdEJ2eit6KzRjK0tFOG8vOVBsVmRSVVZnd1R4RVl6N1UvYnUwVndwemdONFRSQkFiRXdPdDZVNm5SbmpsZVIvZjlKUDNGMlhPQWFaall1YVlVRW1qN1NFYkZqVFNjVDUxaUZXbHVXd2NVY1NrS1kyelFwdWtpWGxVMUQ2eHF5UlJ0NDk2aHkwa01MSVJGTEhhbmtoeHZpdnJVYjcwYVFBdFRKbkFRYmxBRk5PUlRrelk2VU0yYzcwSVo4emIwMUprRW5KUHRYcXRHMXpIYm1SQkpJMkVVc0FXUHRTcEFBNVRJMjJyaUo2bjZPVmdiN1Q4djUvdEIrOUtzTjhHcFMyanRyMktQdnJ2dTJIVmVRa1pxSmwzUDlLOUJJM0JJeFFZWkdKNitoRFprWnhMREhwbG9yZ3JmVzZ2NWN5a1lxbTJXaWFoWmRwQTRmdXVTUFQ3Nk9XNHM3a0RJSkE1bWpYM0JKT0Q1Ymlpcnk4dU9RazNFbU0rYloycDdzd04xcTNGMDEvY3l5U1cyblFudWxZNUFrZndnajVMemZlbzFBcTNFdyt1cjlWcDNoenVIYUFjWExxM0QrcUdFNlkwMWtSK0hkRWtBbkhRZ2RLcFhFWEgxeHBSVkRwMFRzOGJTS1F4MndjWU9hNkM0MWdYVU9GNzZEbHllNkxMOHh2WEozYUhINDdRK1lFcWYwTlg2Y1AzbmhydXJhMGY4bjdmeEI5VjdTZUtMekp0cnVPeGo2Y3NNYTgzK29nbXEzZFg5OXJONUFOVzFXNWxWcFZVeXp1MGdqQk9DMlBicnRRSS93Q1dhK3hsRFY0SUIyRXlyZFpmZC9xT1Q4eVoxZHdQZDZWd3JvRWVqOE9RU0VZNXBMeTRJTXN6WXhuYlpSdHNCMEgzbzI1dlo3d2hwMzVqV1g5bCt0Zkc2REFKSHpOQWU2ZmZyZ2JINmpINjFva0xaSE1QVE5ZbG9LdVFaOWI2QzJuczBxdlVvSEUrM0RoUWRqU3dQRmdkYThrSDd3cEZ4Y1FXZHM5MWNTckZER09aM2JvQi9jKzFMUGVhbHhGWUxFOFFsbVNLTnBaNUZSRVVzN3MyQW9IbVNlZ3BuUzlSajFPMGt1STdTV08yWWo0U1oyd2JnZWJoQ01oUFFuZHV1TVlKalAyZmNhcktsMXJjVFEyS0VQQnBiL21rUFVQY0Q3RVJlV3hiSjJFaGYzOGNHSGxZdEkrNnFEdTFURmZPTVpKbVlMdDZuVVdOdHFINi93Q1B1N245N1JZcXIycVNIcVJYMXhjOTJDRk5PM3NVVm1JbzdZNXRaSVVrZ0o2bFNBZC9mUDhBV29EVjd4WW96NGhUSHFaVzJtZk5HdlN3bDA0QjdUelV0VzdxTStQZXFMcit2Ty9NQTIxZTZ6ZXZJV1BNY1ZWYnBaYm1YbFhPOVdLNjhjbVZYc3pQLzlrPSIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2UvanBlZyIsICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSJ9XSwgInN0YXJ0X3VybCI6ICIuIiwgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsICJ0aGVtZV9jb2xvciI6ICIjMDA1NmIzIiwgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCJ9">
+    <link rel="icon" type="image/jpeg" href="data:image/jpeg;base64,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">
+
+    <!-- Librería para generación de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* ESTILOS BASE Y ADAPTABILIDAD MÓVIL */
+        * { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+        body { margin: 0; padding: 0; background-color: #f4f6f9; color: #333; }
+        
+        .tab-content { display: none; padding: 12px; padding-bottom: 80px; }
+        .tab-content.active { display: block; }
+        
+        .card { background: #ffffff; padding: 15px; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .card-title { margin-top: 0; color: #0056b3; font-size: 1.1em; border-bottom: 2px solid #0056b3; padding-bottom: 5px; }
+        
+        label { font-weight: bold; font-size: 0.8em; color: #495057; display: block; margin-top: 6px; }
+        input, select, button { width: 100%; padding: 8px; margin-top: 3px; border: 1px solid #ced4da; border-radius: 5px; font-size: 13px; }
+        input[readonly] { background-color: #e9ecef; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        
+        /* CUADRÍCULA DE 5 PUNTOS TRANSVERSALES ALINEADA EN MÓVILES */
+        .grid-5 { 
+            display: grid; 
+            grid-template-columns: repeat(5, minmax(0, 1fr)); 
+            gap: 4px; 
+            align-items: end;
+        }
+        .grid-5 > div {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .grid-5 label {
+            text-align: center;
+            font-size: 0.72em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 2px;
+        }
+        .grid-5 input {
+            padding: 8px 3px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .res-box { font-weight: bold; text-align: center; padding: 6px 2px; border-radius: 4px; font-size: 0.75em; margin-top: 4px; }
+        .val-neutral { background-color: #e9ecef; color: #6c757d; }
+        .val-verde { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .val-rojo { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .val-azul { background-color: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+        
+        /* HOJA OFICIAL PROTOCOLO CONTROL DE CAPAS */
+        #hoja_pdf { background: #ffffff; padding: 15px; border: 1px solid #ccc; font-size: 10px; width: 100%; }
+        .proto-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 10px; }
+        .proto-logo { max-width: 110px; max-height: 55px; object-fit: contain; }
+        .proto-title { text-align: center; flex-grow: 1; }
+        .proto-title h2 { margin: 0; font-size: 13px; color: #000; text-transform: uppercase; }
+        .proto-title p { margin: 2px 0 0 0; font-size: 9px; font-weight: bold; color: #555; }
+        
+        .proto-info-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 9.5px; }
+        .proto-info-table td { border: 1px solid #666; padding: 4px; }
+        .proto-info-table td.bg-gray { background-color: #f0f0f0; font-weight: bold; width: 18%; }
+        
+        .table-container { margin-top: 8px; overflow-x: auto; }
+        table.data-table { width: 100%; border-collapse: collapse; font-size: 9px; text-align: center; }
+        table.data-table th, table.data-table td { border: 1px solid #444; padding: 4px 2px; }
+        table.data-table th { background-color: #e0e0e0; color: #000; font-weight: bold; }
+
+        /* ESTADÍSTICAS Y DICTAMEN FINAL */
+        .summary-box { margin-top: 12px; border: 1px solid #444; padding: 8px; background-color: #fafafa; }
+        .summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; text-align: center; font-size: 9px; }
+        .summary-item { background: #fff; padding: 5px; border: 1px solid #ddd; border-radius: 3px; }
+        .summary-item span { display: block; font-weight: bold; font-size: 11px; margin-top: 2px; }
+        
+        .dictamen-box { text-align: center; padding: 8px; margin-top: 8px; font-weight: bold; font-size: 12px; border-radius: 4px; letter-spacing: 1px; }
+        .dictamen-aprobado { background-color: #d4edda; color: #155724; border: 2px solid #c3e6cb; }
+        .dictamen-rechazado { background-color: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; }
+
+        /* PIE DE PÁGINA PDF - FIRMA EN ORILLA DERECHA */
+        .proto-footer {
+            margin-top: 32px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .firma-bloque {
+            text-align: right;
+            min-width: 190px;
+            border-top: 1px solid #999;
+            padding-top: 4px;
+        }
+        .firma-titulo {
+            color: #6c757d;
+            font-weight: bold;
+            font-size: 9.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .firma-nombre {
+            color: #212529;
+            font-weight: bold;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        /* NAVEGACIÓN INFERIOR */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; display: flex; background: #0056b3; height: 55px; z-index: 1000; }
+        .nav-btn { flex: 1; border: none; background: transparent; color: #ffffff; font-weight: bold; font-size: 13px; cursor: pointer; }
+        .nav-btn.active { background: #003d80; border-top: 3px solid #ffc107; }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== PESTAÑA 1: INICIO ==================== -->
+    <div id="inicio" class="tab-content active">
+        <div class="card">
+            <h3 class="card-title">DATOS DE CONTROL EN TERRENO - (EEOC1)</h3>
+            
+            <label for="contrato">Nombre del Contrato / Obra</label>
+            <input type="text" id="contrato" placeholder="Ej: Reposición Calzadas Sector El Boro">
+
+            <label for="profesional">NOMBRE DEL PROFESIONAL</label>
+            <input type="text" id="profesional" placeholder="Ej: Ernesto Olivares C.">
+            
+            <label for="num_protocolo">Número de Protocolo</label>
+            <input type="text" id="num_protocolo" placeholder="Ej: PROT-SUB-001">
+            
+            <div class="grid-2">
+                <div>
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha">
+                </div>
+                <div>
+                    <label for="certificado">Certificado Calibración</label>
+                    <select id="certificado">
+                        <option value="SI">SI</option>
+                        <option value="NO">NO</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="tramo">Tramo / Sector</label>
+            <input type="text" id="tramo" placeholder="Ej: Calle Domeyko (Tramo 1)">
+
+            <div class="grid-2">
+                <div>
+                    <label for="km_inicio">Km / Dm Inicio</label>
+                    <input type="text" id="km_inicio" placeholder="0+000">
+                </div>
+                <div>
+                    <label for="km_termino">Km / Dm Término</label>
+                    <input type="text" id="km_termino" placeholder="0+500">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <label for="lado">Lado a Revisar</label>
+                    <select id="lado">
+                        <option value="AMBOS">AMBOS</option>
+                        <option value="DERECHO">DERECHO</option>
+                        <option value="IZQUIERDO">IZQUIERDO</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="item_control">Ítem a Controlar</label>
+                    <select id="item_control">
+                        <option value="SUBRASANTE">SUBRASANTE</option>
+                        <option value="SUBBASE GRANULAR">SUBBASE GRANULAR</option>
+                        <option value="BASE GRANULAR">BASE GRANULAR</option>
+                        <option value="MEZCLA ASFÁLTICA">MEZCLA ASFÁLTICA</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <label for="pr_nombre">Nombre del PR / BM</label>
+                    <input type="text" id="pr_nombre" placeholder="PR-01">
+                </div>
+                <div>
+                    <label for="pr_cota">Cota del PR (m)</label>
+                    <input type="number" id="pr_cota" step="0.001" placeholder="100.000">
+                </div>
+            </div>
+
+            <label for="pct_aprobacion">Porcentaje Mínimo para Aprobación (%)</label>
+            <input type="number" id="pct_aprobacion" value="80" min="0" max="100" placeholder="Ej: 80">
+
+            <button type="button" id="btn_guardar_inicio" style="background-color: #0056b3; color: white; font-weight: bold; margin-top: 15px;">Guardar Datos e Ir a Planilla</button>
+        </div>
+    </div>
+
+    <!-- ==================== PESTAÑA 2: PLANILLA ==================== -->
+    <div id="planilla" class="tab-content">
+        <div class="card">
+            <h3 class="card-title">Nivelación e Instrumental</h3>
+            <div class="grid-2">
+                <div>
+                    <label for="plan_cota_pr">Cota PR (m)</label>
+                    <input type="number" id="plan_cota_pr" step="0.001" placeholder="100.000">
+                </div>
+                <div>
+                    <label for="lect_atras">Lectura Atrás (+)</label>
+                    <input type="number" id="lect_atras" step="0.001" placeholder="1.250">
+                </div>
+            </div>
+            <label for="cota_inst">Altura Instrumental (m)</label>
+            <input type="number" id="cota_inst" readonly placeholder="Esperando datos...">
+        </div>
+
+        <div class="card">
+            <h3 class="card-title">Lecturas de Campo (5 Puntos Transversales)</h3>
+            
+            <div class="grid-2">
+                <div>
+                    <label for="km_actual">Km / Dm Actual</label>
+                    <input type="text" id="km_actual" placeholder="0+020">
+                </div>
+                <div>
+                    <label>Tolerancias (mm)</label>
+                    <div class="grid-2">
+                        <input type="number" id="tol_arriba" placeholder="+ Tol" value="10">
+                        <input type="number" id="tol_abajo" placeholder="- Tol" value="10">
+                    </div>
+                </div>
+            </div>
+
+            <label>Cotas de Proyecto (m)</label>
+            <div class="grid-5">
+                <div><label>IZQ</label><input type="number" id="proy_izq" step="0.001"></div>
+                <div><label>M-IZQ</label><input type="number" id="proy_mizq" step="0.001"></div>
+                <div><label>EJE</label><input type="number" id="proy_eje" step="0.001"></div>
+                <div><label>M-DER</label><input type="number" id="proy_mder" step="0.001"></div>
+                <div><label>DER</label><input type="number" id="proy_der" step="0.001"></div>
+            </div>
+
+            <label>Lecturas Delante Terreno (m)</label>
+            <div class="grid-5">
+                <div><label>L.IZQ</label><input type="number" id="lect_izq" step="0.001"></div>
+                <div><label>L.M-IZQ</label><input type="number" id="lect_mizq" step="0.001"></div>
+                <div><label>L.EJE</label><input type="number" id="lect_eje" step="0.001"></div>
+                <div><label>L.M-DER</label><input type="number" id="lect_mder" step="0.001"></div>
+                <div><label>L.DER</label><input type="number" id="lect_der" step="0.001"></div>
+            </div>
+
+            <label>Diferencias Obtenidas (mm)</label>
+            <div class="grid-5">
+                <div id="res_izq" class="res-box val-neutral">-</div>
+                <div id="res_mizq" class="res-box val-neutral">-</div>
+                <div id="res_eje" class="res-box val-neutral">-</div>
+                <div id="res_mder" class="res-box val-neutral">-</div>
+                <div id="res_der" class="res-box val-neutral">-</div>
+            </div>
+
+            <button type="button" id="btn_registrar_punto" style="background-color: #28a745; color: white; font-weight: bold; margin-top: 15px;">Registrar Perfil Completo</button>
+        </div>
+    </div>
+
+    <!-- ==================== PESTAÑA 3: PROTOCOLO ==================== -->
+    <div id="protocolo" class="tab-content">
+        <div class="card">
+            <label for="cargar_logo">Cargar Logo de la Empresa / Obra:</label>
+            <input type="file" id="cargar_logo" accept="image/*" style="margin-bottom: 10px;">
+            
+            <button type="button" id="btn_compartir_pdf" style="background-color: #17a2b8; color: white; font-weight: bold; margin-bottom: 15px;">Generar y Compartir PDF Completo</button>
+        </div>
+
+        <div id="hoja_pdf">
+            <div class="proto-header">
+                <img id="logo_preview" class="proto-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='50'><rect width='100%' height='100%' fill='%23eee'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='10' fill='%23aaa'>LOGO OBRA</text></svg>" alt="Logo Obra">
+                <div class="proto-title">
+                    <h2>PROTOCOLO DE CONTROL TOPOGRÁFICO</h2>
+                    <p id="proto_subtitulo_item">CONTROL DE CAPAS - PLANILLA DE TERRENO</p>
+                </div>
+            </div>
+
+            <table class="proto-info-table">
+                <tr>
+                    <td class="bg-gray">OBRA / CONTRATO:</td>
+                    <td id="pdf_contrato" colspan="3">-</td>
+                </tr>
+                <tr>
+                    <td class="bg-gray">N° PROTOCOLO:</td>
+                    <td id="pdf_protocolo">-</td>
+                    <td class="bg-gray">FECHA:</td>
+                    <td id="pdf_fecha">-</td>
+                </tr>
+                <tr>
+                    <td class="bg-gray">TRAMO / SECTOR:</td>
+                    <td id="pdf_tramo">-</td>
+                    <td class="bg-gray">LADO:</td>
+                    <td id="pdf_lado">-</td>
+                </tr>
+                <tr>
+                    <td class="bg-gray">SUBR / CAPA:</td>
+                    <td id="pdf_item">-</td>
+                    <td class="bg-gray">CERTIFICADO:</td>
+                    <td id="pdf_certificado">-</td>
+                </tr>
+                <tr>
+                    <td class="bg-gray">PR / BM REFERENCIA:</td>
+                    <td id="pdf_pr">-</td>
+                    <td class="bg-gray">COTA PR (m):</td>
+                    <td id="pdf_cota_pr">-</td>
+                </tr>
+                <tr>
+                    <td class="bg-gray">PROFESIONAL:</td>
+                    <td id="pdf_profesional">-</td>
+                    <td class="bg-gray">ALTURA INSTRUMENTAL (m):</td>
+                    <td id="pdf_altura_inst">-</td>
+                </tr>
+            </table>
+
+            <div class="table-container">
+                <table class="data-table" id="tabla_protocolo_ada">
+                    <thead>
+                        <tr>
+                            <th>Km / Dm</th>
+                            <th>Punto</th>
+                            <th>Cota Proy. (m)</th>
+                            <th>Cota Terr. (m)</th>
+                            <th>Diferencia (mm)</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Registros cargados dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="summary-box">
+                <div class="summary-grid">
+                    <div class="summary-item">Puntos Totales<span id="pdf_total_puntos">0</span></div>
+                    <div class="summary-item">Conformes<span id="pdf_puntos_ok" style="color:#155724;">0</span></div>
+                    <div class="summary-item">Fuera Norma<span id="pdf_puntos_no" style="color:#721c24;">0</span></div>
+                    <div class="summary-item">% Cumplimiento<span id="pdf_porcentaje">0%</span></div>
+                    <div class="summary-item">Exigencia Min.<span id="pdf_exigencia">80%</span></div>
+                </div>
+                <div id="pdf_dictamen" class="dictamen-box" style="background-color: #e9ecef;">PENDIENTE DE EVALUACIÓN</div>
+            </div>
+
+            <!-- PIE DE PÁGINA PDF: FIRMA Y NOMBRE DEL PROFESIONAL EN ORILLA DERECHA -->
+            <div class="proto-footer">
+                <div class="firma-bloque">
+                    <div class="firma-titulo">FIRMA</div>
+                    <div id="pdf_firma_profesional" class="firma-nombre">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN INFERIOR FIJA -->
+    <div class="bottom-nav">
+        <button type="button" class="nav-btn active" data-tab="inicio">INICIO</button>
+        <button type="button" class="nav-btn" data-tab="planilla">PLANILLA</button>
+        <button type="button" class="nav-btn" data-tab="protocolo">PROTOCOLO</button>
+    </div>
+
+    <script>
+        let datosInicio = { pctAprobacion: 80 };
+        let baseDatos = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const botonesNav = document.querySelectorAll('.nav-btn');
+            botonesNav.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const destino = boton.getAttribute('data-tab');
+                    cambiarVentana(destino, boton);
+                });
+            });
+
+            document.getElementById('btn_guardar_inicio').addEventListener('click', guardarDatosInicio);
+            document.getElementById('btn_registrar_punto').addEventListener('click', registrarYGuardar);
+            document.getElementById('btn_compartir_pdf').addEventListener('click', compartirPDF);
+            
+            document.getElementById('cargar_logo').addEventListener('change', function(e) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    document.getElementById('logo_preview').src = reader.result;
+                }
+                if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
+            });
+
+            document.getElementById('pr_cota').addEventListener('input', sincronizarPR);
+            document.getElementById('pr_nombre').addEventListener('input', sincronizarPR);
+            document.getElementById('profesional').addEventListener('input', sincronizarProfesional);
+
+            const camposCalculo = [
+                'plan_cota_pr', 'lect_atras', 'tol_arriba', 'tol_abajo', 
+                'proy_izq', 'proy_mizq', 'proy_eje', 'proy_mder', 'proy_der', 
+                'lect_izq', 'lect_mizq', 'lect_eje', 'lect_mder', 'lect_der'
+            ];
+            
+            camposCalculo.forEach(id => {
+                const elemento = document.getElementById(id);
+                if (elemento) elemento.addEventListener('input', calcularTodo);
+            });
+        });
+
+        function cambiarVentana(idVentana, botonSeleccionado) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            const pestañaDestino = document.getElementById(idVentana);
+            if (pestañaDestino) pestañaDestino.classList.add('active');
+            if (botonSeleccionado) botonSeleccionado.classList.add('active');
+
+            if (idVentana === 'protocolo') {
+                actualizarHojaPDF();
+            }
+        }
+
+        function guardarDatosInicio() {
+            datosInicio = {
+                contrato: document.getElementById('contrato').value || "S/D",
+                profesional: document.getElementById('profesional').value.trim() || "-",
+                numProtocolo: document.getElementById('num_protocolo').value || "S/D",
+                fecha: document.getElementById('fecha').value || "S/D",
+                certificado: document.getElementById('certificado').value,
+                tramo: document.getElementById('tramo').value || "S/D",
+                kmInicio: document.getElementById('km_inicio').value || "0+000",
+                kmTermino: document.getElementById('km_termino').value || "0+000",
+                lado: document.getElementById('lado').value,
+                itemControl: document.getElementById('item_control').value,
+                prNombre: document.getElementById('pr_nombre').value || "S/D",
+                prCota: document.getElementById('pr_cota').value || "0.000",
+                pctAprobacion: parseFloat(document.getElementById('pct_aprobacion').value) || 80
+            };
+
+            document.getElementById('plan_cota_pr').value = datosInicio.prCota;
+            calcularTodo();
+            actualizarHojaPDF();
+            actualizarTablaADA();
+
+            alert("¡Datos guardados con éxito! Pasando a PLANILLA...");
+
+            const botonPlanilla = document.querySelector('.nav-btn[data-tab="planilla"]');
+            cambiarVentana('planilla', botonPlanilla);
+        }
+
+        function sincronizarPR() {
+            datosInicio.prNombre = document.getElementById('pr_nombre').value || "S/D";
+            datosInicio.prCota = document.getElementById('pr_cota').value || "0.000";
+            document.getElementById('plan_cota_pr').value = datosInicio.prCota;
+            actualizarHojaPDF();
+            calcularTodo();
+        }
+
+        function sincronizarProfesional() {
+            datosInicio.profesional = document.getElementById('profesional').value.trim() || "-";
+            actualizarHojaPDF();
+        }
+
+        function actualizarHojaPDF() {
+            const profActual = document.getElementById('profesional').value.trim() || datosInicio.profesional || "-";
+            const altInstActual = document.getElementById('cota_inst').value || "-";
+
+            document.getElementById('pdf_contrato').innerText = datosInicio.contrato || "-";
+            document.getElementById('pdf_protocolo').innerText = datosInicio.numProtocolo || "-";
+            document.getElementById('pdf_fecha').innerText = datosInicio.fecha || "-";
+            document.getElementById('pdf_tramo').innerText = `${datosInicio.tramo || ''} (${datosInicio.kmInicio || ''} - ${datosInicio.kmTermino || ''})`;
+            document.getElementById('pdf_lado').innerText = datosInicio.lado || "-";
+            document.getElementById('pdf_item').innerText = datosInicio.itemControl || "-";
+            document.getElementById('pdf_certificado').innerText = datosInicio.certificado || "-";
+            document.getElementById('pdf_pr').innerText = datosInicio.prNombre || "-";
+            document.getElementById('pdf_cota_pr').innerText = datosInicio.prCota || "-";
+            document.getElementById('pdf_profesional').innerText = profActual;
+            document.getElementById('pdf_altura_inst').innerText = altInstActual;
+            document.getElementById('pdf_firma_profesional').innerText = profActual;
+            document.getElementById('pdf_exigencia').innerText = (datosInicio.pctAprobacion || 80) + "%";
+            
+            document.getElementById('proto_subtitulo_item').innerText = "CONTROL DE CAPAS - PLANILLA DE TERRENO";
+        }
+
+        function calcularPunto(cotaProy, lectDelante, cotaInst, tolArriba, tolAbajo, idElemento) {
+            let elem = document.getElementById(idElemento);
+            
+            if (isNaN(cotaProy) || isNaN(lectDelante) || isNaN(cotaInst) || cotaInst === 0) {
+                if (elem) {
+                    elem.innerText = "-";
+                    elem.className = "res-box val-neutral";
+                }
+                return null;
+            }
+
+            let cotaTerreno = cotaInst - lectDelante;
+            let difMM = Math.round((cotaTerreno - cotaProy) * 1000);
+
+            if (elem) {
+                elem.innerText = (difMM > 0 ? "+" : "") + difMM + " mm";
+                if (difMM === 0) {
+                    elem.className = "res-box val-azul";
+                } else if (difMM >= -Math.abs(tolAbajo) && difMM <= Math.abs(tolArriba)) {
+                    elem.className = "res-box val-verde";
+                } else {
+                    elem.className = "res-box val-rojo";
+                }
+            }
+
+            let estado = "error";
+            if (difMM === 0) estado = "zero";
+            else if (difMM >= -Math.abs(tolAbajo) && difMM <= Math.abs(tolArriba)) estado = "ok";
+
+            return { cotaTerreno: cotaTerreno, difMM: difMM, estado: estado };
+        }
+
+        function calcularTodo() {
+            let pr = parseFloat(document.getElementById('plan_cota_pr').value);
+            let atras = parseFloat(document.getElementById('lect_atras').value);
+            let cotaInst = 0;
+
+            if (!isNaN(pr) && !isNaN(atras)) {
+                cotaInst = pr + atras;
+                document.getElementById('cota_inst').value = cotaInst.toFixed(3);
+                document.getElementById('pdf_altura_inst').innerText = cotaInst.toFixed(3);
+            } else {
+                document.getElementById('cota_inst').value = "";
+                document.getElementById('pdf_altura_inst').innerText = "-";
+            }
+
+            let tolArriba = parseFloat(document.getElementById('tol_arriba').value) || 0;
+            let tolAbajo = parseFloat(document.getElementById('tol_abajo').value) || 0;
+
+            calcularPunto(parseFloat(document.getElementById('proy_izq').value), parseFloat(document.getElementById('lect_izq').value), cotaInst, tolArriba, tolAbajo, 'res_izq');
+            calcularPunto(parseFloat(document.getElementById('proy_mizq').value), parseFloat(document.getElementById('lect_mizq').value), cotaInst, tolArriba, tolAbajo, 'res_mizq');
+            calcularPunto(parseFloat(document.getElementById('proy_eje').value), parseFloat(document.getElementById('lect_eje').value), cotaInst, tolArriba, tolAbajo, 'res_eje');
+            calcularPunto(parseFloat(document.getElementById('proy_mder').value), parseFloat(document.getElementById('lect_mder').value), cotaInst, tolArriba, tolAbajo, 'res_mder');
+            calcularPunto(parseFloat(document.getElementById('proy_der').value), parseFloat(document.getElementById('lect_der').value), cotaInst, tolArriba, tolAbajo, 'res_der');
+        }
+
+        function registrarYGuardar() {
+            let km = document.getElementById('km_actual').value;
+            let cotaInst = parseFloat(document.getElementById('cota_inst').value) || 0;
+
+            if (!km) {
+                alert("Ingrese el Km o Dm actual para registrar.");
+                return;
+            }
+
+            let tolArriba = parseFloat(document.getElementById('tol_arriba').value) || 0;
+            let tolAbajo = parseFloat(document.getElementById('tol_abajo').value) || 0;
+
+            const posiciones = [
+                { id: 'izq', nom: 'IZQ' },
+                { id: 'mizq', nom: 'M-IZQ' },
+                { id: 'eje', nom: 'EJE' },
+                { id: 'mder', nom: 'M-DER' },
+                { id: 'der', nom: 'DER' }
+            ];
+
+            let listaPuntos = [];
+
+            posiciones.forEach(pos => {
+                let proyVal = parseFloat(document.getElementById(`proy_${pos.id}`).value);
+                let lectVal = parseFloat(document.getElementById(`lect_${pos.id}`).value);
+
+                if (!isNaN(proyVal) && !isNaN(lectVal)) {
+                    let res = calcularPunto(proyVal, lectVal, cotaInst, tolArriba, tolAbajo, null);
+                    if (res) {
+                        listaPuntos.push({
+                            nombre: pos.nom,
+                            proy: proyVal,
+                            terr: res.cotaTerreno,
+                            dif: res.difMM,
+                            estado: res.estado
+                        });
+                    }
+                }
+            });
+
+            if (listaPuntos.length === 0) {
+                alert("Ingrese al menos un par de valores válidos.");
+                return;
+            }
+
+            baseDatos.push({
+                km: km,
+                puntos: listaPuntos
+            });
+
+            actualizarTablaADA();
+
+            ['km_actual', 'proy_izq', 'proy_mizq', 'proy_eje', 'proy_mder', 'proy_der', 
+             'lect_izq', 'lect_mizq', 'lect_eje', 'lect_mder', 'lect_der'].forEach(id => {
+                document.getElementById(id).value = "";
+            });
+            
+            calcularTodo();
+            alert("Perfil " + km + " guardado con éxito.");
+        }
+
+        function actualizarTablaADA() {
+            let tbody = document.querySelector('#tabla_protocolo_ada tbody');
+            tbody.innerHTML = "";
+
+            let totalPuntos = 0;
+            let puntosConformes = 0;
+            let puntosFuera = 0;
+
+            baseDatos.forEach(reg => {
+                reg.puntos.forEach((p, index) => {
+                    totalPuntos++;
+                    let tr = document.createElement('tr');
+                    
+                    let celdaKm = index === 0 ? `<td rowspan="${reg.puntos.length}">${reg.km}</td>` : '';
+                    
+                    let bgStyle = "";
+                    let estadoTexto = "";
+
+                    if (p.estado === 'ok') {
+                        puntosConformes++;
+                        bgStyle = 'style="background-color: #d4edda; color: #155724; font-weight: bold;"';
+                        estadoTexto = "CONFORME";
+                    } else if (p.estado === 'zero') {
+                        puntosConformes++;
+                        bgStyle = 'style="background-color: #cce5ff; color: #004085; font-weight: bold;"';
+                        estadoTexto = "CUMPLE";
+                    } else {
+                        puntosFuera++;
+                        bgStyle = 'style="background-color: #f8d7da; color: #721c24; font-weight: bold;"';
+                        estadoTexto = "FUERA DE NORMA";
+                    }
+
+                    tr.innerHTML = `
+                        ${celdaKm}
+                        <td><strong>${p.nombre}</strong></td>
+                        <td>${p.proy.toFixed(3)}</td>
+                        <td>${p.terr.toFixed(3)}</td>
+                        <td ${bgStyle}>${p.dif > 0 ? '+' : ''}${p.dif} mm</td>
+                        <td ${bgStyle}>${estadoTexto}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            });
+
+            let porcentajeVal = totalPuntos > 0 ? ((puntosConformes / totalPuntos) * 100) : 0;
+            let porcentajeTexto = porcentajeVal.toFixed(1);
+            let umbralRequerido = datosInicio.pctAprobacion !== undefined ? datosInicio.pctAprobacion : 80;
+
+            document.getElementById('pdf_total_puntos').innerText = totalPuntos;
+            document.getElementById('pdf_puntos_ok').innerText = puntosConformes;
+            document.getElementById('pdf_puntos_no').innerText = puntosFuera;
+            document.getElementById('pdf_porcentaje').innerText = porcentajeTexto + "%";
+            document.getElementById('pdf_exigencia').innerText = umbralRequerido + "%";
+
+            let dictamenElem = document.getElementById('pdf_dictamen');
+            
+            if (totalPuntos > 0) {
+                if (porcentajeVal >= umbralRequerido) {
+                    dictamenElem.innerText = "TRAMO APROBADO";
+                    dictamenElem.className = "dictamen-box dictamen-aprobado";
+                } else {
+                    dictamenElem.innerText = "TRAMO RECHAZADO";
+                    dictamenElem.className = "dictamen-box dictamen-rechazado";
+                }
+            } else {
+                dictamenElem.innerText = "PENDIENTE DE EVALUACIÓN";
+                dictamenElem.className = "dictamen-box";
+                dictamenElem.style.backgroundColor = "#e9ecef";
+            }
+        }
+
+        async function compartirPDF() {
+            if (baseDatos.length === 0) {
+                alert("Debe registrar al menos un perfil en la Planilla antes de exportar.");
+                return;
+            }
+
+            actualizarHojaPDF();
+
+            const elemento = document.getElementById('hoja_pdf');
+            const opciones = {
+                margin: 0.2,
+                filename: `Protocolo_${datosInicio.numProtocolo || 'TERRENO'}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, scrollX: 0, scrollY: 0 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            try {
+                const pdfBlob = await html2pdf().set(opciones).from(elemento).output('blob');
+                const archivo = new File([pdfBlob], `Protocolo_${datosInicio.numProtocolo || 'TERRENO'}.pdf`, { type: 'application/pdf' });
+
+                if (navigator.canShare && navigator.canShare({ files: [archivo] })) {
+                    await navigator.share({
+                        files: [archivo],
+                        title: 'Protocolo de Control Topográfico',
+                        text: `Adjunto Protocolo N° ${datosInicio.numProtocolo} - Status: ${document.getElementById('pdf_dictamen').innerText}`
+                    });
+                } else {
+                    html2pdf().set(opciones).from(elemento).save();
+                    alert("PDF descargado en su almacenamiento. Puede adjuntarlo manualmente.");
+                }
+            } catch (error) {
+                alert("Error al procesar el archivo PDF: " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
